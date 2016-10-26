@@ -42,8 +42,8 @@ public class hudMain {
         lblCTime = new Label(String.format("%03d", nTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lblCScore = new Label(String.format("%06d", nScore), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         tblMain.reset();
-                tblMain.top();
-                System.out.println(nTime);
+        tblMain.top();
+        System.out.println(nTime);
         tblMain.add(lblMain).expandX().padTop(20);
         tblMain.add(lblScore).expandX().padTop(20);
         tblMain.add(lblTime).expandX().padTop(20);

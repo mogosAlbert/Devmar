@@ -1,6 +1,7 @@
 package GamDev.Screens;
 
 import GamDev.Huds.hudMain;
+import GamDev.Misc.WorldLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,10 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import GamDev.Sprites.SprMain;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,6 +28,9 @@ public class ScrGame implements Screen {
     private int nChangeX;
     private SprMain Spr1;
     private hudMain hudMain;
+    private World worlMain;
+    private WorldLoader B2World1;
+    private Box2DDebugRenderer B2DR;
 
     @Override
     public void render(float delta) {
@@ -37,6 +45,7 @@ public class ScrGame implements Screen {
         } else { 
             nChangeX = 0;
         }
+        worlMain.step(delta, 6, 2);
         //MapCam.position.set(Spr1.getX() + Spr1.getWidth() / 2, Spr1.getY() + Spr1.getHeight() / 2 + 250 - 50, 0);
         MapCam.translate((float) nChangeX, 0);
         MapCam.update();
@@ -60,11 +69,14 @@ public class ScrGame implements Screen {
         Map1 = new TmxMapLoader().load("Maps/level1.tmx");
         MapRender = new OrthogonalTiledMapRenderer(Map1, 2.5f);
         MapCam = new OrthographicCamera();
-        Spr1 = new SprMain((TiledMapTileLayer) Map1.getLayers().get(0));
+        Spr1 = new SprMain(this);
         Spr1.setPosition(11 * Spr1.getCollisionLayer().getTileWidth() + 300, (Spr1.getCollisionLayer().getHeight() - 14) * Spr1.getCollisionLayer().getTileHeight() + 60);
         Gdx.input.setInputProcessor(Spr1);
         sprBatch = new SpriteBatch();
         hudMain = new hudMain(sprBatch);
+        worlMain = new World(new Vector2(0, -10), true);
+        B2DR = new Box2DDebugRenderer();
+        B2World1 = new WorldLoader(this);
     }
 
     @Override
@@ -84,5 +96,11 @@ public class ScrGame implements Screen {
     public void dispose() {
         Map1.dispose();
         MapRender.dispose();
+    }
+    public World getWorld() {
+        return worlMain;
+    }
+    public TiledMap getMap() {
+        return Map1;
     }
 }

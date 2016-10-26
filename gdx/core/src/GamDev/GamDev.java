@@ -4,7 +4,7 @@ import GamDev.Screens.ScrGame;
 
 
 public class GamDev extends Game {
-
+    public static float ppt = 16;
     @Override
     public void create() {
         setScreen(new ScrGame());
