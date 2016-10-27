@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class WorldLoader {
     public WorldLoader(ScrGame scrMain) {
-        World wor1 = scrMain.getWorld();
+        World wor1 = scrMain.worlMain;
         TiledMap tilmap1 = scrMain.getMap();
         BodyDef bdefMain = new BodyDef();
         PolygonShape psMain = new PolygonShape(); 
@@ -23,9 +23,9 @@ public class WorldLoader {
         for (MapObject mapobMain: tilmap1.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rectObject = ((RectangleMapObject) mapobMain).getRectangle();
             bdefMain.type = BodyDef.BodyType.StaticBody;
-            bdefMain.position.set((rectObject.getX() + rectObject.getWidth() / 2) / GamDev.ppt, (rectObject.getY() + rectObject.getHeight() / 2) / GamDev.ppt);
+            bdefMain.position.set(rectObject.getX() + (rectObject.width / 2), rectObject.getY() + rectObject.height / 2);
             bodMain = wor1.createBody(bdefMain);
-            psMain.setAsBox((rectObject.getWidth() / 2) / GamDev.ppt, (rectObject.getHeight() / 2) / GamDev.ppt);
+            psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
             fixdefMain.shape = psMain;
             bodMain.createFixture(fixdefMain);
         }

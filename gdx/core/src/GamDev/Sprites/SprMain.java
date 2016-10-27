@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -30,50 +31,24 @@ public class SprMain extends Sprite implements InputProcessor {
     public BodyDef bdMain;
     public FixtureDef fdMain;
 
-    public SprMain(ScrGame scrMain) {
-        this.worlMain = scrMain.getWorld();
+    public SprMain(ScrGame scrMain, float fX, float fY) {
+        this.worlMain = scrMain.worlMain;
         vVelocity = new Vector2();
-        setSize(35, 70);
+        setSize(20, 30);
         for (int i = 0; i < imgStand.length; i++) {
             imgStand[i] = new Texture(Gdx.files.internal("Wolverine/stand/" + i + ".png"));
         }
-        setX(70);
-        setY(400);
-        bdMain.position.set(getX(), getY());
-        bdMain.type = BodyDef.BodyType.DynamicBody;
-        worlMain.createBody(bdMain);
-        fdMain.shape = new CircleShape();
-        fdMain.shape.setRadius(10);
-        bodMain.createFixture(fdMain).setUserData(this);
+        setX(fX);
+        setY(fY);
+        
     }
 
     @Override
     public void draw(Batch batch) {
-        update(Gdx.graphics.getDeltaTime());
         super.draw(batch);
     }
 
-    public void update(float fDelta) {
-        vVelocity.y -= fGravity * fDelta;
-        if (vVelocity.y > fSpeed) {
-            vVelocity.y = fSpeed;
-        } else if (vVelocity.y < -fSpeed) {
-            vVelocity.y = -fSpeed;
-        }
-        setX(getX() + vVelocity.x * fDelta);
-        fIncrement = collisionLayer.getTileWidth();
-        fIncrement = getWidth() < fIncrement ? getWidth() / 2 : fIncrement / 2;
-        float fOldX = getX(), fOldY = getY();
-        boolean isColX = false, isColY = false;
-        if (vVelocity.x < 0) {
-            isColX = isColLeft();
-        } else if (vVelocity.x > 0)
-        {
-            isColX = isColRight();
-        }
-        if(isColX) {
-            setX(fOldX);
-        }
+    public void update(float fDelta, float fX, float fY) {
         nOffset++;
         if (nOffset == 5) {
             nOffset = 0;
@@ -84,7 +59,8 @@ public class SprMain extends Sprite implements InputProcessor {
         }
         imgOut = new TextureRegion(imgStand[nFrame]);
         setRegion(imgOut);
-
+        setX(fX);
+        setY(fY);
     }
 
     public TiledMapTileLayer getCollisionLayer() {

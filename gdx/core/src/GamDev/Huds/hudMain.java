@@ -43,7 +43,6 @@ public class hudMain {
         lblCScore = new Label(String.format("%06d", nScore), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         tblMain.reset();
         tblMain.top();
-        System.out.println(nTime);
         tblMain.add(lblMain).expandX().padTop(20);
         tblMain.add(lblScore).expandX().padTop(20);
         tblMain.add(lblTime).expandX().padTop(20);
