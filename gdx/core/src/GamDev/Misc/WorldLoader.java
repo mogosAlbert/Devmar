@@ -29,5 +29,14 @@ public class WorldLoader {
             fixdefMain.shape = psMain;
             bodMain.createFixture(fixdefMain);
         }
+        for (MapObject mapobMain: tilmap1.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rectObject = ((RectangleMapObject) mapobMain).getRectangle();
+            bdefMain.type = BodyDef.BodyType.StaticBody;
+            bdefMain.position.set(rectObject.getX() + (rectObject.width / 2), rectObject.getY() + rectObject.height / 2);
+            bodMain = wor1.createBody(bdefMain);
+            psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
+            fixdefMain.shape = psMain;
+            bodMain.createFixture(fixdefMain);
+        }
     }
 }
