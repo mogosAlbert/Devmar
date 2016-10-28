@@ -76,7 +76,7 @@ public class ScrGame implements Screen {
     public void show() {
         Map1 = new TmxMapLoader().load("Maps/level1.tmx");
         MapRender = new OrthogonalTiledMapRenderer(Map1);
-        worlMain = new World(new Vector2(0, -50), true);
+        worlMain = new World(new Vector2(0, -70), true);
         MapCam = new OrthographicCamera();
         Spr1 = new SprMain(this, 300, 200);
         sprBatch = new SpriteBatch();
@@ -114,6 +114,5 @@ public class ScrGame implements Screen {
         } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Spr1.bodMain.getLinearVelocity().x < 40f) {
             Spr1.bodMain.applyLinearImpulse(new Vector2(5f, 0), Spr1.bodMain.getWorldCenter(), true);
         }
-        System.out.println(Spr1.bodMain.getLinearVelocity().x);
     }
 }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class SprMain extends Sprite {
@@ -27,6 +28,7 @@ public class SprMain extends Sprite {
     public Body bodMain;
     public BodyDef bdMain;
     public FixtureDef fdMain;
+    public FixtureDef fdFeet;
 
     public SprMain(ScrGame scrMain, float fX, float fY) {
         this.worlMain = scrMain.worlMain;
@@ -41,11 +43,16 @@ public class SprMain extends Sprite {
         bdMain.position.set(getX(), getY());
         bdMain.type = BodyDef.BodyType.DynamicBody;
         bodMain = worlMain.createBody(bdMain);
-        CircleShape circMain = new CircleShape();
-        circMain.setRadius(13);
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(getWidth() / 2, getHeight() / 2 ,new Vector2(bodMain.getLocalCenter().x / 2, bodMain.getLocalCenter().y / 2 + 0.5f), 0);
         fdMain = new FixtureDef();
-        fdMain.shape = circMain;
+        fdMain.shape = pShape;
         bodMain.createFixture(fdMain);
+        fdFeet = new FixtureDef();
+        pShape.setAsBox(getWidth() / 2 - 2, 1, new Vector2(bodMain.getLocalCenter().x / 2, bodMain.getLocalCenter().y / 2 - (getHeight() / 2) + 1), 0);
+        fdFeet.shape = pShape;
+        fdFeet.friction = 40f;
+        bodMain.createFixture(fdFeet);
     }
 
     @Override
@@ -63,10 +70,13 @@ public class SprMain extends Sprite {
             nFrame = 0;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            bodMain.applyLinearImpulse(new Vector2(0, 85f), bodMain.getWorldCenter(), true);
+            bodMain.applyLinearImpulse(new Vector2(0, 100f), bodMain.getWorldCenter(), true);
         }
-        setX(bodMain.getPosition().x - 13);
-        setY(bodMain.getPosition().y - 13);
+        if(bodMain.getLinearVelocity().y == 0) {
+            bodMain.getLinearVelocity().x = 0;
+        }
+        setX(bodMain.getPosition().x - getWidth() / 2);
+        setY(bodMain.getPosition().y - getHeight() / 2);
         imgOut = new TextureRegion(imgStand[nFrame]);
         setRegion(imgOut);
     }
