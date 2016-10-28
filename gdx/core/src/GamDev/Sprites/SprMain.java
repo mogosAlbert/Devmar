@@ -47,11 +47,12 @@ public class SprMain extends Sprite {
         pShape.setAsBox(getWidth() / 2, getHeight() / 2 ,new Vector2(bodMain.getLocalCenter().x / 2, bodMain.getLocalCenter().y / 2 + 0.5f), 0);
         fdMain = new FixtureDef();
         fdMain.shape = pShape;
+        fdMain.friction = 0f;
         bodMain.createFixture(fdMain);
         fdFeet = new FixtureDef();
         pShape.setAsBox(getWidth() / 2 - 2, 1, new Vector2(bodMain.getLocalCenter().x / 2, bodMain.getLocalCenter().y / 2 - (getHeight() / 2) + 1), 0);
         fdFeet.shape = pShape;
-        fdFeet.friction = 40f;
+        fdFeet.friction = 10f;
         bodMain.createFixture(fdFeet);
     }
 

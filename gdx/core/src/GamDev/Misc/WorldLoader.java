@@ -28,7 +28,6 @@ public class WorldLoader {
             bodMain = wor1.createBody(bdefMain);
             psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
             fixdefMain.shape = psMain;
-            fixdefMain.friction = fricSet;
             bodMain.createFixture(fixdefMain);
         }
         for (MapObject mapobMain: tilmap1.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
@@ -38,7 +37,6 @@ public class WorldLoader {
             bodMain = wor1.createBody(bdefMain);
             psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
             fixdefMain.shape = psMain;
-            fixdefMain.friction = fricSet;
             bodMain.createFixture(fixdefMain);
         }
         for (MapObject mapobMain: tilmap1.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
@@ -48,7 +46,6 @@ public class WorldLoader {
             bodMain = wor1.createBody(bdefMain);
             psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
             fixdefMain.shape = psMain;
-            fixdefMain.friction = fricSet;
             bodMain.createFixture(fixdefMain);
         }
         for (MapObject mapobMain: tilmap1.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
@@ -58,7 +55,6 @@ public class WorldLoader {
             bodMain = wor1.createBody(bdefMain);
             psMain.setAsBox(rectObject.getWidth() / 2, rectObject.getHeight() / 2);
             fixdefMain.shape = psMain;
-            fixdefMain.friction = fricSet;
             bodMain.createFixture(fixdefMain);
         }
     }
